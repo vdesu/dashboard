@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+
+   dashboard:
+      image: vdesu/dashboard
+      networks:
+         - payables_network
+      ports:
+         - 80:8080
+      depends_on: 
+         - orcldb
+
+   orcldb:
+      image: store/oracle/database-enterprise:12.2.0.1
+      volumes:
+       - orcldata:/ORCL
+      networks:
+         - payables_network
+      ports:
+         - 1521:1521
+
+volumes:
+  orcldata:
+
+networks:
+   payables_network:
